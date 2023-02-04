@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RootRenderer : MonoBehaviour
 {
-    List<Vector3> vertices = new List<Vector3>();
+    [SerializeField] List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
     Mesh rootMesh;
     int count;
@@ -13,14 +13,16 @@ public class RootRenderer : MonoBehaviour
     {
         rootMesh = new Mesh();
         GetComponent<MeshFilter>().mesh = rootMesh;
+
     }
 
     private void UpdateMesh()
     {
         rootMesh.Clear();
-        rootMesh.vertices = vertices.ToArray();
+        rootMesh.SetVertices(vertices);
         rootMesh.triangles = triangles.ToArray();
         rootMesh.RecalculateNormals();
+        GetComponent<MeshCollider>().sharedMesh = rootMesh;
     }
 
     public void AddPoint(Vector3 point, float r = .4f)
