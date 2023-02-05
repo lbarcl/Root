@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject[] Platforms; // Platform#0 will be starting platform and last platfrom will be endindg platform
-    [SerializeField] int PlatformCount;
-    [SerializeField] float PlatformLength;
+    [SerializeField] GameObject[] upPlatforms; // Platform#0 will be starting platform and last platfrom will be endindg platform
+    [SerializeField] GameObject[] downPlatforms; // Platform#0 will be starting platform and last platfrom will be endindg platform
+    [SerializeField] int platformCount;
+    [SerializeField] float platformLength;
 
     private void Start()
     {
         Vector3 lastPlatformPosition = transform.position;
-        Instantiate(Platforms[0], lastPlatformPosition, Quaternion.identity);
-        for (int i = 0; i < PlatformCount; i++)
+        Instantiate(upPlatforms[0], lastPlatformPosition + new Vector3(1, 8, 0), Quaternion.identity);
+        Instantiate(downPlatforms[0], lastPlatformPosition, Quaternion.Euler(0,-90,0));
+
+        for (int i = 0; i < platformCount; i++)
         {
-            lastPlatformPosition += new Vector3(0, 0, PlatformLength);
-            Instantiate(Platforms[Random.Range(1, Platforms.Length - 1)], lastPlatformPosition, Quaternion.identity);
+            lastPlatformPosition += new Vector3(0, 0, platformLength);
+            Instantiate(upPlatforms[Random.Range(1, upPlatforms.Length - 1)], lastPlatformPosition + new Vector3(1,8,0), Quaternion.identity);
+            Instantiate(downPlatforms[Random.Range(1, downPlatforms.Length - 1)], lastPlatformPosition, Quaternion.Euler(0,-90,0));
+
         }
-        lastPlatformPosition += new Vector3(0, 0, PlatformLength);
-        Instantiate(Platforms[Platforms.Length - 1], lastPlatformPosition, Quaternion.identity);
+        lastPlatformPosition += new Vector3(0, 0, platformLength);
+        Instantiate(upPlatforms[upPlatforms.Length - 1], lastPlatformPosition + new Vector3(1, 8, 0), Quaternion.identity);
+        Instantiate(downPlatforms[downPlatforms.Length - 1], lastPlatformPosition, Quaternion.Euler(0,-90,0));
     }
 }

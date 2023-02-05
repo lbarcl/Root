@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class LineMenager : MonoBehaviour
 {
-    private LineRenderer line;
-    private List<Vector3> points;
+    [SerializeField] LineRenderer line;
+    private List<Vector3> points = new List<Vector3>();
     public Vector3 lastPoint;
-
-    private void Start()
-    {
-        line = GetComponent<LineRenderer>();
-        points = new List<Vector3>();
-    }
 
     public void AddPoint(Vector3 point)
     {

@@ -18,11 +18,11 @@ public class Head : MonoBehaviour
 
     private void Start()
     {
+        CurrentDistance = MaxDistance;
+        CurrentSpeed = Speed;
         LastPointPosition = transform.position;
         lm.AddPoint(transform.position);
         rb = GetComponent<Rigidbody>();
-        CurrentDistance = MaxDistance;
-        CurrentSpeed = Speed;
     }
 
     void Update()
@@ -116,7 +116,7 @@ public class Head : MonoBehaviour
         {
             CurrentDistance += 50;
             MaxDistance += 50;
-            other.enabled = false;
+            Destroy(other.gameObject);
         }
     }
 }

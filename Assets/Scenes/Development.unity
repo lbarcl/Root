@@ -246,12 +246,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9e417b4c65aa941b36487df0fa6e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Platforms:
-  - {fileID: 4193538722420087057, guid: 340dee8957dd7f347b17877987bfc390, type: 3}
-  - {fileID: 3395806997287264718, guid: a5f1ebc2d391132449f57f3cfaaf9a3a, type: 3}
-  - {fileID: 8536598711936703532, guid: 262576522c7f3c64da3e3bafdc5720cc, type: 3}
-  PlatformCount: 10
-  PlatformLength: 20
+  upPlatforms:
+  - {fileID: 2147554161701452167, guid: 6af65e3a5197af449931d257d3676b8b, type: 3}
+  - {fileID: 7393768606776774909, guid: 9b0a0fd6348d3a140abd90437e4ebd41, type: 3}
+  - {fileID: 8373234377896361076, guid: 9ecada96a052ea04590753851516d750, type: 3}
+  - {fileID: 345150582114334150, guid: 94d175a53632b4f4a8f27eaabc17f251, type: 3}
+  - {fileID: 652543870180159936, guid: 9d3326337c8b17f4c8e192e31e3c0654, type: 3}
+  - {fileID: 6556414961664302457, guid: 4df824b854e4b3247a1bf74374a8d42d, type: 3}
+  downPlatforms:
+  - {fileID: 5146993739594603659, guid: 8cd8a12d6ed735e4fbda776582033b07, type: 3}
+  - {fileID: 7919193729973758053, guid: 485158aea35e68b49b652e7c745dff9b, type: 3}
+  - {fileID: 728674889393483562, guid: 760ced8655a3aa14fb13e989dff99bec, type: 3}
+  - {fileID: 4001812230432279098, guid: 1e91b4437cfa3144d8ccdafca035dee9, type: 3}
+  - {fileID: 7455189670363973750, guid: e05571e7395c2954493e106f603fbeca, type: 3}
+  - {fileID: 6103531733900959031, guid: b2dbe558bb204e841bd5da2f7d32fe04, type: 3}
+  platformCount: 5
+  platformLength: 20
 --- !u!4 &1197077089
 Transform:
   m_ObjectHideFlags: 0
