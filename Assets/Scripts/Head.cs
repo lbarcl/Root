@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Head : MonoBehaviour
 {
@@ -8,7 +8,13 @@ public class Head : MonoBehaviour
     float CurrentDistance, MaxDistance = 400;
     
     [SerializeField] LineMenager lm;
+    [SerializeField] AudioClip[] clips;
+    [SerializeField] AudioSource audioSourceOfDrill;
+    [SerializeField] AudioSource audioSourceOfSFX;
     [SerializeField] GameObject SpeedTrail;
+    [SerializeField] GameObject litteTree;
+    [SerializeField] Slider waterLevel;
+    GameMenager menager;
     Rigidbody rb;
 
     Vector3 LastPointPosition;
@@ -19,10 +25,12 @@ public class Head : MonoBehaviour
     private void Start()
     {
         CurrentDistance = MaxDistance;
+        waterLevel.maxValue = MaxDistance;
         CurrentSpeed = Speed;
         LastPointPosition = transform.position;
         lm.AddPoint(transform.position);
         rb = GetComponent<Rigidbody>();
+        menager = GameObject.FindGameObjectWithTag("GameMenager").GetComponent<GameMenager>();
     }
 
     void Update()
@@ -37,11 +45,12 @@ public class Head : MonoBehaviour
             else
             {
                 Stop = true;
-                Debug.Log("Game Over");
+                finishGame = true;
+                menager.LoadBadEnd();
             }
 
         } else if (!Stop) Move();
-        Debug.Log("Current: " + CurrentDistance);
+        waterLevel.value = CurrentDistance;
     }
 
     void Go2CheckPoint()
@@ -58,7 +67,10 @@ public class Head : MonoBehaviour
             {
                 remove = true;
                 if (CheckPointIndex > 0)
+                {
                     lm.RemoveFromEnd(CheckPointIndex);
+                    play(4);
+                }
             }
             transform.position = lm.lastPoint;
         }
@@ -82,7 +94,15 @@ public class Head : MonoBehaviour
             lm.AddPoint(transform.position);
             LastPointPosition = transform.position;
             CurrentDistance -= 1;
+            audioSourceOfDrill.clip = clips[0];
+            audioSourceOfDrill.Play();
         }
+    }
+
+    void play(int index)
+    {
+        audioSourceOfSFX.clip = clips[index];
+        audioSourceOfSFX.Play();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -90,9 +110,10 @@ public class Head : MonoBehaviour
         if (collision.collider.CompareTag("Concrete"))
         {
             Stop = true;
+            play(3);
         } else if (collision.collider.CompareTag("Finish"))
         {
-            Debug.Log("You won");
+            menager.LoadGoodEnd();
             finishGame = true;
         }
     }
@@ -106,6 +127,8 @@ public class Head : MonoBehaviour
                 CheckPointPosition = transform.position;
                 lm.AddPoint(transform.position);
                 CheckPointIndex = lm.GetIndex(transform.position);
+                Instantiate(litteTree, LastPointPosition, Quaternion.identity);
+                play(1);
             }
         }
     }
@@ -114,9 +137,11 @@ public class Head : MonoBehaviour
     {
         if (other.CompareTag("Water"))
         {
-            CurrentDistance += 50;
-            MaxDistance += 50;
+            CurrentDistance += 100;
+            MaxDistance += 100;
+            waterLevel.maxValue = MaxDistance;
             Destroy(other.gameObject);
+            play(2);
         }
     }
 }

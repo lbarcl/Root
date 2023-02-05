@@ -5,6 +5,7 @@ using UnityEngine;
 public class LineMenager : MonoBehaviour
 {
     [SerializeField] LineRenderer line;
+
     private List<Vector3> points = new List<Vector3>();
     public Vector3 lastPoint;
 
@@ -42,7 +43,7 @@ public class LineMenager : MonoBehaviour
             points.RemoveAt(points.Count - 1);
             DrawLine();
             lastPoint = points[points.Count - 1];
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.01f);
             StartCoroutine(RemoveEnd(until));
         }
     }
